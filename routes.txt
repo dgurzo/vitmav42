@@ -1,0 +1,77 @@
+Dallista
+- index.html            -> táblázat (edit, delete, dallista), új előadó gomb
+- eloado_hozzaad.html   -> előadó save, cancel
+- eloado_modosit.html   -> előadó edit, cancel
+- dalok.html            -> táblázat (edit, delete), új dal gomb
+- dal_hozzaad.html      -> dal save, cancel
+- dal_modosit.html      -> dal edit, cancel
+
+------------------------------------------------------------------------------------------------------------------------
+Routing
+
+renderMW
+
+middlewares/eloado
+    getEloadokMW
+    getEloadoMW
+    saveEloadoMW
+    delEloadoMW
+
+middleware/dal
+    getDalokMW
+    getDalMW
+    saveDalMW
+    delDalMW
+
+GET  /                      - index.html
+    getEloadokMW
+    renderMW(index.html)
+
+GET, POST  /eloado/new            - eloado_hozzaad.html
+    saveEloadoMW
+        if(typeof req.body.eloadonev === 'undefined) {
+            return next();
+        }
+        .........
+        res.redirect('/');
+        res.locals
+        next();
+    renderMW(eloado_hozzaad.html)
+        - ha volt vmi érték beküldve -> form elemek azzal töltődjenek beküldve
+        - ha nem, akkor nem
+
+GET, POST  /eloado/edit/:eloadoid - eloado_modosit.html
+    getEloadoMW {előadó betöltése a formba}
+    saveEloadoMW
+    renderMW(eloado_modosit.html)
+        - ha volt vmi érték beküldve -> form elemek azzal töltődjenek beküldve
+        - ha nem, akkor nem
+
+GET  /eloado/del/:eloadoid  - előadó törlése
+    getEloadoMW
+    delEloadoMW
+        res.locals.eloado.delete();
+        res.redirect('/');
+
+GET  /dal/:eloadoid         - dalok.html
+    getEloadoMW
+    getDalokMW
+    renderMW(dalok.html)
+
+GET, POST  /dal/:eloadid/new    - dal_hozzaad.html
+    getEloadoMW
+    saveDalMW
+    renderMW(dal_hozzaad.html)
+
+GET, POST  /dal/:eloadid/edit/:dalid   - dal_modosit.html
+    getEloadoMW
+    getDalMW
+    saveDalMW
+    renderMW(dal_modosit.html)
+
+GET  /dal/:eloadid/del/:dalid    - dal törlése
+    getEloadoMW
+    getDalMW
+    delDalMW
+
+------------------------------------------------------------------------------------------------------------------------
