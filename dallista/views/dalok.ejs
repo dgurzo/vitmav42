@@ -1,0 +1,38 @@
+<%- include('header') -%>  
+
+    <div class="container">
+        </br>
+        <div class="row">
+            <div class="col-12">
+                <a href="/" class="btn btn-sm btn-primary">Vissza</a>
+            </div>
+        </br> </br>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>Cím</th>
+                        <th>Album</th>
+                        <th>Kiadás éve</th>
+                        <th>&nbsp;</th>
+                    </tr>    
+                    
+                    <% dalok.forEach(function(egyDal) { %>
+                    <tr>
+                        <td><%= egyDal.cim %></td>
+                        <td><%= egyDal.album %></td>
+                        <td><%= egyDal.kiadasev %></td>
+                        <td>
+                            <a href="/dal/<%= egyDal._id %>/edit/<%= egyDal.dal_id %>" class="btn btn-sm btn-primary">Módosítás</a>
+                            <a href="#" class="btn btn-sm btn-danger">Törlés</a>
+                        </td>
+                    </tr>
+                    <% }); %>
+                </table>
+                <a href="/dal/<%= eloado._id %>/new" class="btn btn-block btn-primary">Új dal</a>
+            </div>
+        </div>
+    </div>
+
+<%- include('footer') -%>  
