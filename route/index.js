@@ -10,9 +10,14 @@ const getDalMW = require('../middleware/dal/getDalMW');
 const saveDalMW = require('../middleware/dal/saveDalMW');
 const delDalMW = require('../middleware/dal/delDalMW');
 
+const EloadoModel = require('../models/eloado');
+const DalModel = require('../models/dal');
 
 module.exports = function (app) {
-    const objRepo = {};
+    const objRepo = {
+        EloadoModel: EloadoModel,
+        DalModel: DalModel
+    };
         
     app.use('/eloado/new',
         saveEloadoMW(objRepo),

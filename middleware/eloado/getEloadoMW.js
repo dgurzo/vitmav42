@@ -6,13 +6,15 @@
 const requireOption = require('../requireOption');
 
 module.exports = function (objectrepository) {
+    const EloadoModel = requireOption(objectrepository, 'EloadoModel');
     return function (req, res, next) {
-        res.locals.eloado = {
-            _id: '01',
-            eloado_nev: 'Skillet',
-            mufaj: 'Rock',
-            alapitas_ev: 1996
-        };
-        return next();
+        EloadoModel.findOne({_id: req.params.eloadoid},
+            (err, eloado) => {
+                if(err || !eloado) {
+                    return next(err);
+                }
+                res.locals.eloado = eloado;
+                return next();
+        });
     };
 };
