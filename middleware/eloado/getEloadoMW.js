@@ -7,6 +7,12 @@ const requireOption = require('../requireOption');
 
 module.exports = function (objectrepository) {
     return function (req, res, next) {
-        next();
+        res.locals.eloado = {
+            _id: '01',
+            eloado_nev: 'Skillet',
+            mufaj: 'Rock',
+            alapitas_ev: 1996
+        };
+        return next();
     };
 };

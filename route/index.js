@@ -13,36 +13,37 @@ const delDalMW = require('../middleware/dal/delDalMW');
 
 module.exports = function (app) {
     const objRepo = {};
-
-    app.get('/',
-        getEloadokMW(objRepo),
-        renderMW(objRepo, 'index'));
+        
     app.use('/eloado/new',
         saveEloadoMW(objRepo),
-        renderMW(objRepo, 'eloado_hozzaad'));
+        renderMW(objRepo, 'eloado_hozzaad_modosit'));
     app.use('/eloado/edit/:eloadoid',
         getEloadoMW(objRepo),
         saveEloadoMW(objRepo),
-        renderMW(objRepo, 'eloado_modosit'));
+        renderMW(objRepo, 'eloado_hozzaad_modosit'));
     app.get('/eloado/del/:eloadoid',
         getEloadoMW(objRepo),
         delEloadoMW(objRepo));
+    app.get('/',
+        getEloadokMW(objRepo),
+        renderMW(objRepo, 'index'));
 
-    app.get('/dal/:eloadoid',
-        getEloadoMW(objRepo),
-        getDalokMW(objRepo),
-        renderMW(objRepo, 'dalok'));
+    
     app.use('/dal/:eloadoid/new',
         getEloadoMW(objRepo),
         saveDalMW(objRepo),
-        renderMW(objRepo, 'dal_hozzaad'));
+        renderMW(objRepo, 'dal_hozzaad_modosit'));
     app.use('/dal/:eloadoid/edit/:dalid',
         getEloadoMW(objRepo),
         getDalMW(objRepo),
         saveDalMW(objRepo),
-        renderMW(objRepo, 'dal_modosit'));
+        renderMW(objRepo, 'dal_hozzaad_modosit'));
     app.get('/dal/:eloadoid/del/:dalid',
         getEloadoMW(objRepo),
         getDalMW(objRepo),
         delDalMW(objRepo));
+    app.get('/dal/:eloadoid',
+        getEloadoMW(objRepo),
+        getDalokMW(objRepo),
+        renderMW(objRepo, 'dalok'));
 };
