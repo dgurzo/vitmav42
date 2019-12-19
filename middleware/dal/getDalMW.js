@@ -6,14 +6,15 @@
 const requireOption = require('../requireOption');
 
 module.exports = function (objectrepository) {
+    const DalModel = requireOption(objectrepository, 'DalModel');
     return function (req, res, next) {
-        res.locals.dal = {
-            _id: '01',
-            dal_id: '1',
-            cim: 'Finish Line',
-            album: 'Victorious',
-            kiadasev: 2014
-        };
-        return next();
+        DalModel.findOne({_id: req.params.dalid}, 
+            (err, dal) => {
+                if(err || !dal) {
+                    return next(err);
+                }
+                res.locals.dal = dal;
+                return next();
+        });
     };
 };

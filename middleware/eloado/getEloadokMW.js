@@ -6,26 +6,14 @@
 const requireOption = require('../requireOption');
 
 module.exports = function (objectrepository) {
+    const EloadoModel = requireOption(objectrepository, 'EloadoModel');
     return function (req, res, next) {
-        setTimeout(function() {
-            res.locals.eloadok = [
-                {
-                    _id: '01',
-                    eloado_nev: 'Skillet',
-                    mufaj: 'Rock',
-                    alapitas_ev: 1996
-                }, 
-                {
-                    _id: '02',
-                    eloado_nev: 'asdasd',
-                    mufaj: 'Ro',
-                    alapitas_ev: 1222
-                }
-            ];
+        EloadoModel.find({}, (err, eloadok) => {
+            if(err) {
+                return next(err);
+            }
+            res.locals.eloadok = eloadok;
             return next();
-        }, 30);
-        
-
-        
+        });    
     };
 };

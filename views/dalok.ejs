@@ -5,8 +5,9 @@
         <div class="row">
             <div class="col-12">
                 <a href="/" class="btn btn-sm btn-primary">Vissza</a>
+                <h2 align="center"><%= eloado.eloado_nev %> dalai</h2>
+            </br>
             </div>
-        </br> </br>
         </div>
         <div class="row">
             <div class="col-12">
@@ -24,8 +25,8 @@
                         <td><%= egyDal.album %></td>
                         <td><%= egyDal.kiadasev %></td>
                         <td>
-                            <a href="/dal/<%= egyDal._id %>/edit/<%= egyDal.dal_id %>" class="btn btn-sm btn-primary">Módosítás</a>
-                            <a href="#" class="btn btn-sm btn-danger">Törlés</a>
+                            <a href="/dal/<%= eloado._id %>/edit/<%= egyDal._id %>" class="btn btn-sm btn-primary">Módosítás</a>
+                            <a href="/dal/<%= eloado._id %>/del/<%= egyDal._id %>" class="btn btn-sm btn-danger">Törlés</a>
                         </td>
                     </tr>
                     <% }); %>

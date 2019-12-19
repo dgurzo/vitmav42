@@ -6,16 +6,17 @@
 const requireOption = require('../requireOption');
 
 module.exports = function (objectrepository) {
+    const DalModel = requireOption(objectrepository, 'DalModel');
     return function (req, res, next) {
-        res.locals.dalok = [
-            {
-            _id: '01',
-            dal_id: '1',
-            cim: 'Finish Line',
-            album: 'Victorious',
-            kiadasev: 2014
+        if(typeof res.locals.eloado === 'undefined') {
+            return next();
+        }
+        DalModel.find({_eloado: res.locals.eloado._id}, (err, dalok) => {
+            if(err) {
+                return next(err);
             }
-        ];
-        return next();
+            res.locals.dalok = dalok;
+            return next();
+        })
     };
 };
